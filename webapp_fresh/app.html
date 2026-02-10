@@ -1421,17 +1421,17 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            color: rgba(255, 255, 255, 0.9);
+            color: #ffffff;
             font-family: 'Courier New', monospace;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             z-index: 20;
             pointer-events: none;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7), 2px 2px 4px rgba(0, 0, 0, 0.8);
-            background: rgba(0, 0, 0, 0.6);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.8);
             padding: 8px 12px;
             border-radius: 4px;
-            border: 1px solid rgba(255, 0, 0, 0.4);
+            border: 2px solid rgba(255, 0, 0, 0.6);
             animation: blinkText 2s infinite;
             text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
         }
@@ -1487,11 +1487,11 @@
 
         /* The Land Mass (Lithuania) - Digital Outline */
         .map-img-interactive g {
-            fill: #0f1f0f;
-            stroke: #2a5c2a;
+            fill: rgba(80, 80, 80, 0.6);
+            stroke: rgba(255, 255, 255, 0.8);
             stroke-width: 20px;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.1));
-            opacity: 0.8;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            opacity: 0.9;
         }
 
         /* 6. Markers (GTA Icons) */
@@ -2509,20 +2509,20 @@
         }
         
         .satellite-view {
-            background-color: rgba(0, 0, 0, 0.7);
-            background-image: radial-gradient(rgba(255, 0, 0, 0.1) 1.5px, transparent 1.5px);
+            background-color: rgba(0, 0, 0, 0.3);
+            background-image: radial-gradient(rgba(255, 0, 0, 0.05) 1.5px, transparent 1.5px);
             background-size: 24px 24px;
             position: relative;
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(2px);
             
             /* FLAT & CLEAN */
             transform: none;
             transform-origin: center center;
             transition: transform 1.2s var(--spring-smooth);
             will-change: transform; /* GPU Acceleration */
-            border: 2px solid rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 0, 0, 0.5);
             border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 80px rgba(0,0,0,0.7);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0,0,0,0.3);
             overflow: hidden;
             margin: 15px;
         }
@@ -2832,8 +2832,13 @@
 
         .hud-coords {
             font-family: 'Courier New', monospace;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             font-size: 12px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 6px 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 0, 0, 0.5);
         }
 
         .hud-reset {
@@ -5404,7 +5409,7 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                         </div> <!-- End Zoom Layer -->
                         
                         <div class="sat-hud">
-                            <div class="hud-coords">SAT-LINK: ACTIVE</div>
+                            <div class="hud-coords" style="color: #ffffff; text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);">SAT-LINK: ACTIVE</div>
                         </div>
                     </div>
 

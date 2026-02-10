@@ -916,17 +916,29 @@
         /* The Sign Itself - BENT CORNER */
         .street-sign {
             background: #000000;
-            border: 5px solid #ffffff;
-            border-radius: 6px;
-            padding: 15px 50px;
+            border: 6px solid #ffffff;
+            border-radius: 8px;
+            padding: 10px 25px;
             margin-top: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.7), inset 0 0 10px rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
             transform-origin: left center;
             position: relative;
             overflow: visible;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            gap: 15px;
+            min-width: 280px;
+        }
+        
+        .street-sign::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 30px solid #ffffff;
+            margin-right: -10px;
         }
 
         /* Bent corner shadow */
@@ -1083,13 +1095,15 @@
 
         .sign-text {
             font-family: 'Arial Black', 'Helvetica', sans-serif;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 900;
             color: #ffffff;
             text-transform: uppercase;
             white-space: nowrap;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
             letter-spacing: 2px;
             text-shadow: 
                 2px 2px 3px rgba(0,0,0,0.5),
@@ -1937,11 +1951,11 @@
 
         .menu-header {
             font-family: 'Diploma', 'Old English Text MT', 'UnifrakturMaguntia', cursive;
-            font-size: 70px;
+            font-size: 80px;
             color: #fff;
             text-shadow: 3px 3px 8px #000, 0 0 30px rgba(0, 0, 0, 0.9), 2px 2px 0 #000;
             position: absolute;
-            top: 50px; left: 50px;
+            top: 40px; left: 20px;
             margin: 0;
             line-height: 1.1;
             text-align: left;
@@ -1951,9 +1965,9 @@
         
         @media (max-width: 480px) {
             .menu-header {
-                font-size: 38px;
-                top: 30px;
-                left: 20px;
+                font-size: 42px;
+                top: 25px;
+                left: 10px;
                 padding: 15px 25px 15px 20px;
                 line-height: 1.15;
             }

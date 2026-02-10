@@ -1487,11 +1487,11 @@
 
         /* The Land Mass (Lithuania) - Digital Outline */
         .map-img-interactive g {
-            fill: rgba(80, 80, 80, 0.6);
-            stroke: rgba(255, 255, 255, 0.8);
-            stroke-width: 20px;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-            opacity: 0.9;
+            fill: rgba(255, 255, 255, 0.15);
+            stroke: rgba(255, 255, 255, 0.95);
+            stroke-width: 25px;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+            opacity: 1;
         }
 
         /* 6. Markers (GTA Icons) */
@@ -2509,20 +2509,19 @@
         }
         
         .satellite-view {
-            background-color: rgba(0, 0, 0, 0.3);
-            background-image: radial-gradient(rgba(255, 0, 0, 0.05) 1.5px, transparent 1.5px);
-            background-size: 24px 24px;
+            background-color: transparent;
+            background-image: none;
             position: relative;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(1px);
             
             /* FLAT & CLEAN */
             transform: none;
             transform-origin: center center;
             transition: transform 1.2s var(--spring-smooth);
             will-change: transform; /* GPU Acceleration */
-            border: 2px solid rgba(255, 0, 0, 0.5);
+            border: 3px solid rgba(255, 0, 0, 0.7);
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 40px rgba(0,0,0,0.3);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), 0 0 50px rgba(255, 0, 0, 0.2);
             overflow: hidden;
             margin: 15px;
         }
@@ -2753,7 +2752,7 @@
 
         .sat-vignette {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 40%, #000 100%);
+            background: none;
             pointer-events: none;
             z-index: 10;
         }
@@ -2901,18 +2900,12 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 12;
             pointer-events: none;
-            opacity: 0.3;
-            background: url('https://raw.githubusercontent.com/marcoguglie/css-smoke-effect/master/smoke.png'); 
-            background-size: cover;
-            animation: drift 60s linear infinite;
-            mix-blend-mode: overlay;
+            opacity: 0;
+            display: none;
         }
         
         .sat-clouds.layer2 {
-            z-index: 13;
-            opacity: 0.15;
-            background-position: 100px 50px;
-            animation: drift 40s linear infinite reverse;
+            display: none;
         }
 
         @keyframes drift { from { background-position: 0 0; } to { background-position: 100% 0; } }
@@ -5296,7 +5289,7 @@
                             <!-- PAPER MAP TEXTURE -->
                             <pattern id="city-texture" width="60" height="60" patternUnits="userSpaceOnUse">
                                 <!-- Land Base -->
-                                <rect width="60" height="60" fill="#3e4348"/> <!-- GTA Dark Grey Land -->
+                                <rect width="60" height="60" fill="transparent"/> <!-- Transparent background -->
                                 
                                 <!-- Roads (Light Grey Lines) -->
                                 <path d="M 30 0 L 30 60 M 0 30 L 60 30" stroke="#52575d" stroke-width="3" fill="none"/>
@@ -5385,7 +5378,7 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
 40 -61 -6 -64 -6 -111 30 l-48 37 -30 -29 -31 -29 -155 9 c-121 6 -166 13
 -205 29 -33 14 -86 25 -155 30 -58 5 -116 11 -130 15 -47 13 -89 52 -101 97
 -21 78 -70 172 -113 217 -39 41 -45 55 -70 158 -29 116 -114 343 -131 349 -6
-1 -25 -7 -42 -18z" fill="url(#city-texture)" stroke="#1f2429" stroke-width="30"/>
+1 -25 -7 -42 -18z" fill="transparent" stroke="rgba(255, 255, 255, 0.95)" stroke-width="30"/>
                         </g>
                     </svg>
                     

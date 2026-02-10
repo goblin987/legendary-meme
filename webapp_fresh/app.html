@@ -69,8 +69,11 @@
             font-display: swap;
         }
         
-        /* Ghosthey font - Add font files later if available */
-        /* For now using fallback: Impact, Arial Black */
+        @font-face {
+            font-family: 'GraffitiTwo';
+            src: url('/webapp_fresh/Graffiti W00 Two.woff2') format('woff2');
+            font-display: swap;
+        }
         
         /* Fallback font stack - Bungee as backup */
         .gta-font {
@@ -1936,7 +1939,7 @@
         }
 
         .menu-header {
-            font-family: 'Ghosthey', 'Impact', 'Arial Black', sans-serif;
+            font-family: 'GraffitiTwo', 'Impact', 'Arial Black', sans-serif;
             font-size: 65px;
             font-weight: normal;
             color: #fff;

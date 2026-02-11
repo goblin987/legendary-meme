@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.1-FORCE-TRANSPARENT-REDEPLOY';
+        const APP_VERSION = '5.2-REMOVE-ALL-OVERLAYS';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -267,7 +267,8 @@
             transform: translateX(-50%);
             width: 92%;
             max-width: 420px;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
             border: 2px solid var(--gta-green);
             border-radius: 50px;
             display: flex;
@@ -1376,17 +1377,7 @@
 
         /* 1. Grid Overlay (Moving) */
         .map-grid {
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 300%; height: 300%; /* Massive coverage */
-            background-image: 
-                linear-gradient(rgba(46, 204, 113, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(46, 204, 113, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            transform: perspective(500px) rotateX(20deg);
-            animation: gridPan 30s linear infinite;
-            pointer-events: none;
-            z-index: 1;
+            display: none !important;
         }
 
         @keyframes gridPan {
@@ -1396,13 +1387,7 @@
 
         /* 2. CRT Scanline */
         .scanline-bar {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 3px;
-            background: rgba(0, 255, 0, 0.4);
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
-            animation: scanlineMove 4s linear infinite;
-            z-index: 10;
-            pointer-events: none;
+            display: none !important;
         }
 
         @keyframes scanlineMove {
@@ -1412,13 +1397,7 @@
 
         /* 3. Noise Overlay */
         .noise-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.08;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 11;
-            mix-blend-mode: overlay;
+            display: none !important;
         }
 
         /* 4. Map Layers (Depth) */
@@ -1502,6 +1481,10 @@
 
         /* Radar Sweep Animation */
         .radar-sweep {
+            display: none !important;
+        }
+        
+        .radar-sweep-old {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -2351,13 +2334,7 @@
         }
 
         .scanline-bar {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 3px;
-            background: rgba(0, 255, 0, 0.4);
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
-            animation: scanlineMove 4s linear infinite;
-            z-index: 10;
-            pointer-events: none;
+            display: none !important;
         }
 
         @keyframes scanlineMove {
@@ -2366,13 +2343,7 @@
         }
 
         .noise-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.08;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 11;
-            mix-blend-mode: overlay;
+            display: none !important;
         }
 
         .map-layer {
@@ -2820,10 +2791,7 @@
         }
 
         .sat-vignette {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: none;
-            pointer-events: none;
-            z-index: 10;
+            display: none !important;
         }
 
         /* Zoom Layer */
@@ -4313,7 +4281,8 @@
             width: 90% !important;
             max-width: 350px !important;
             height: 65px !important;
-            background: rgba(0, 0, 0, 0.9) !important;
+            background: rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(10px) !important;
             backdrop-filter: blur(10px) !important;
             border: 1px solid #333 !important;
             border-radius: 40px !important;
@@ -5342,13 +5311,6 @@
             <div class="placeholder-box" style="padding: 0; border: none;">
                 <div class="map-container" id="map-container">
                     <div class="satellite-view">
-                        <div class="scanner-text">SCANNING NETWORK...</div>
-                        <div class="sat-bg"></div>
-                        <div class="map-grid"></div> <!-- Updated class to use new CSS -->
-                        <div class="sat-clouds"></div>
-                        <div class="sat-clouds layer2"></div>
-                        <div class="sat-vignette"></div>
-                        <div class="sat-scanline"></div>
                         <div class="map-zoom-layer" id="map-zoom-layer">
                     <svg id="map-img" class="map-img-interactive" viewBox="0 0 1024 1024" preserveAspectRatio="xMidYMid meet">
                         <defs>

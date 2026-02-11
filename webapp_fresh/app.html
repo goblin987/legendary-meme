@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '4.1-MELTDOWN-FONT-UPDATE';
+        const APP_VERSION = '4.2-FORCE-FONT-RELOAD';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -64,20 +64,20 @@
     <style>
         @font-face {
             font-family: 'Pricedown';
-            src: url('pricedown.woff2') format('woff2'),
-                 url('pricedown.woff') format('woff');
+            src: url('pricedown.woff2?v=4.1') format('woff2'),
+                 url('pricedown.woff?v=4.1') format('woff');
             font-display: swap;
         }
         
         @font-face {
             font-family: 'GraffitiTwo';
-            src: url('Graffiti%20W00%20Two.woff2') format('woff2');
+            src: url('Graffiti%20W00%20Two.woff2?v=4.1') format('woff2');
             font-display: swap;
         }
         
         @font-face {
             font-family: 'MeltdownPhantom';
-            src: url('MeltdownPhantom.ttf') format('truetype');
+            src: url('MeltdownPhantom.ttf?v=4.1') format('truetype');
             font-display: swap;
         }
         

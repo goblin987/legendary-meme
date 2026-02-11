@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.0-PERFECT-MAP';
+        const APP_VERSION = '5.1-FORCE-TRANSPARENT';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -2331,7 +2331,7 @@
         .map-container {
             position: relative;
             height: 450px;
-            background-color: #0d161f;
+            background-color: transparent !important;
             overflow: hidden;
             border: 4px solid #000;
             font-family: 'Courier New', monospace;
@@ -2802,7 +2802,7 @@
         /* --- GTA V SATELLITE NIGHT MODE --- */
         .satellite-view {
             width: 100%; height: 100%;
-            background: #0f161e; /* Deep Ocean Blue */
+            background: transparent !important;
             position: relative;
             overflow: hidden;
             font-family: 'Arial', sans-serif;

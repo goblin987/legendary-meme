@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.7-FINAL-MAP-RADIO-FIX';
+        const APP_VERSION = '5.8-CLEAN-MARKERS-FAST-MUSIC';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -823,7 +823,7 @@
         /* Radio Toggle Button */
         .radio-pill {
             position: fixed;
-            bottom: 100px;
+            bottom: 160px;
             right: 20px;
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid #444;
@@ -894,7 +894,7 @@
         
         @media (max-width: 480px) {
             .radio-pill {
-                bottom: 80px;
+                bottom: 140px;
                 right: 10px;
                 padding: 6px 12px;
                 gap: 8px;
@@ -1594,7 +1594,7 @@
                     drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
         }
 
-        /* 6. Markers (GTA Icons) */
+        /* 6. Markers (Clean Dots) */
         .gta-marker {
             position: absolute;
             display: flex;
@@ -1606,22 +1606,19 @@
         }
 
         .gta-marker:hover {
-            transform: translate(-50%, -50%) scale(1.1);
+            transform: translate(-50%, -50%) scale(1.15);
             z-index: 35;
         }
 
         .marker-icon {
-            width: 36px; height: 36px;
-            background: #f0f0f0;
-            border: 2px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 8px;
-            box-shadow: 3px 3px 0 rgba(0,0,0,0.8);
-            position: relative;
-            
-            /* Pulse Animation */
+            width: 12px;
+            height: 12px;
+            background: #D30000;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(211, 0, 0, 0.8),
+                        0 2px 4px rgba(0, 0, 0, 0.6);
+            margin-right: 6px;
             animation: pulseGlow 3s infinite;
         }
         
@@ -1632,11 +1629,13 @@
         }
 
         .marker-label {
-            font-family: 'Pricedown', 'Bungee', 'Impact', sans-serif;
+            font-family: 'Impact', 'Arial Black', sans-serif;
             color: #fff;
-            font-size: 22px;
-            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
-            letter-spacing: 1px;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000,
+                         -1px -1px 1px #000;
+            letter-spacing: 0.5px;
             white-space: nowrap;
         }
 
@@ -2496,11 +2495,13 @@
         }
 
         .marker-label {
-            font-family: 'Pricedown', 'Bungee', 'Impact', sans-serif;
+            font-family: 'Impact', 'Arial Black', sans-serif;
             color: #fff;
-            font-size: 22px;
-            text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
-            letter-spacing: 1px;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000,
+                         -1px -1px 1px #000;
+            letter-spacing: 0.5px;
             white-space: nowrap;
         }
 
@@ -5980,7 +5981,7 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
         function performTransition() {
             log("performTransition called");
             try {
-                // Fade In Radio
+                // Fade In Radio (Fast)
                 if(audioPlayer) {
                     // RESTART TRACK & UNMUTE
                     audioPlayer.currentTime = 0;
@@ -5991,23 +5992,25 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                         audioPlayer.play().catch(e => console.error("Resume fail", e));
                     }
 
-                    // Fade Volume Up
+                    // Fast Fade Volume Up (0.5 seconds total)
                     let vol = 0;
                     audioPlayer.volume = 0;
                     const fade = setInterval(() => {
-                        vol += 0.05;
+                        vol += 0.1;
                         if(vol >= 0.5) {
                             vol = 0.5;
                             clearInterval(fade);
                         }
                         if(audioPlayer) audioPlayer.volume = vol;
-                    }, 200);
+                    }, 100);
 
                     const radioText = document.getElementById('radio-display');
+                    const radioViz = document.querySelector('.radio-visualizer');
                     if(radioText) {
                         radioText.innerText = stations[1].name;
-                        radioText.style.color = "var(--gta-green)";
+                        radioText.style.color = "#D30000";
                     }
+                    if(radioViz) radioViz.classList.add('viz-active');
                 } else {
                     // If for some reason it's missing, try to start it
                     toggleRadio(true);
@@ -6167,11 +6170,7 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                 pin.onclick = () => zoomToCity(city, coords.top, coords.left);
                 
                 pin.innerHTML = `
-                    <div class="marker-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#000">
-                            <circle cx="12" cy="12" r="8"/>
-                        </svg>
-                    </div>
+                    <div class="marker-icon"></div>
                     <span class="marker-label">${displayName}</span>
                     <div class="blip-pulse"></div>
                 `;

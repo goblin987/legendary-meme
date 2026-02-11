@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '4.7-SMOOTH-GLOW';
+        const APP_VERSION = '4.8-UNIFIED-CLOUD-GLOW';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -121,24 +121,14 @@
         /* Smooth Red Glow Pulse */
         @keyframes redGlowPulse {
             0%, 100% { 
-                text-shadow: 
-                    5px 5px 0 #000,
-                    -2px -2px 0 #000,
-                    2px -2px 0 #000,
-                    -2px 2px 0 #000,
-                    0 0 20px rgba(211, 0, 0, 0.3),
-                    0 0 40px rgba(211, 0, 0, 0.15),
-                    0 5px 15px rgba(0, 0, 0, 0.9);
+                filter: drop-shadow(0 0 15px rgba(211, 0, 0, 0.25))
+                        drop-shadow(0 0 30px rgba(211, 0, 0, 0.15))
+                        drop-shadow(0 0 45px rgba(211, 0, 0, 0.1));
             }
             50% { 
-                text-shadow: 
-                    5px 5px 0 #000,
-                    -2px -2px 0 #000,
-                    2px -2px 0 #000,
-                    -2px 2px 0 #000,
-                    0 0 30px rgba(211, 0, 0, 0.45),
-                    0 0 50px rgba(211, 0, 0, 0.25),
-                    0 5px 15px rgba(0, 0, 0, 0.9);
+                filter: drop-shadow(0 0 20px rgba(211, 0, 0, 0.35))
+                        drop-shadow(0 0 40px rgba(211, 0, 0, 0.2))
+                        drop-shadow(0 0 60px rgba(211, 0, 0, 0.12));
             }
         }
 
@@ -1167,8 +1157,6 @@
                 -2px -2px 0 #000,
                 2px -2px 0 #000,
                 -2px 2px 0 #000,
-                0 0 20px rgba(211, 0, 0, 0.3),
-                0 0 40px rgba(211, 0, 0, 0.15),
                 0 5px 15px rgba(0, 0, 0, 0.9);
             text-align: center;
             position: relative;
@@ -1179,6 +1167,9 @@
             z-index: 61;
             white-space: nowrap;
             transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(211, 0, 0, 0.25))
+                    drop-shadow(0 0 30px rgba(211, 0, 0, 0.15))
+                    drop-shadow(0 0 45px rgba(211, 0, 0, 0.1));
             animation: redGlowPulse 3s ease-in-out infinite;
         }
         

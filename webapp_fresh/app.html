@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.2-REMOVE-ALL-OVERLAYS';
+        const APP_VERSION = '5.3-FINAL-TRANSPARENCY';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -665,15 +665,16 @@
 
         /* RETRO CYBER CARD (V2) */
         .product-card {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #333;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(51, 51, 51, 0.6);
             border-radius: 4px;
             padding: 12px;
             text-align: center;
             transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
         }
         
         @media (max-width: 480px) {
@@ -686,8 +687,8 @@
         .product-card:hover {
             border-color: var(--gta-green);
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(63, 165, 53, 0.2);
-            background: rgba(10, 20, 10, 0.9);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 10;
         }
         
@@ -1869,11 +1870,11 @@
         
         /* Map & Stats */
         .placeholder-box {
-            background: rgba(0,0,0,0.6);
-            padding: 20px;
-            border: 2px solid var(--gta-gold);
+            background: transparent !important;
+            padding: 0;
+            border: none;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 0;
         }
 
         .stat-row {

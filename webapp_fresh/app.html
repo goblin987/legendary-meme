@@ -5665,6 +5665,71 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
             loadProducts(); // CRITICAL: Load Data
             loadUserBalance(); // Load user balance on init
             try { sfx.init(); } catch(e) {} 
+            
+            // #region agent log - Font Debug Instrumentation
+            setTimeout(() => {
+                try {
+                    // Hypothesis A & C: Test font file accessibility
+                    const fontUrls = [
+                        '/webapp_fresh/MeltdownPhantom.ttf?v=4.3',
+                        'MeltdownPhantom.ttf?v=4.3',
+                        window.location.origin + '/webapp_fresh/MeltdownPhantom.ttf?v=4.3'
+                    ];
+                    
+                    fontUrls.forEach((url, idx) => {
+                        fetch(url, {method: 'HEAD'}).then(r => {
+                            fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5675',message:'Font URL test',data:{url:url,idx:idx,status:r.status,ok:r.ok,origin:window.location.origin},timestamp:Date.now(),runId:'initial',hypothesisId:'A,C'})}).catch(()=>{});
+                        }).catch(err => {
+                            fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5675',message:'Font URL error',data:{url:url,idx:idx,error:err.toString(),origin:window.location.origin},timestamp:Date.now(),runId:'initial',hypothesisId:'A,C'})}).catch(()=>{});
+                        });
+                    });
+                    
+                    // Hypothesis D: Check if elements exist and their computed styles
+                    const menuHeader = document.querySelector('.menu-header');
+                    const shopHeader = document.querySelector('.shop-header');
+                    
+                    if (menuHeader) {
+                        const style = window.getComputedStyle(menuHeader);
+                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5690',message:'Menu header computed style',data:{exists:true,fontFamily:style.fontFamily,fontSize:style.fontSize,display:style.display,text:menuHeader.textContent.substring(0,30)},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
+                    } else {
+                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5690',message:'Menu header NOT FOUND',data:{exists:false},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
+                    }
+                    
+                    if (shopHeader) {
+                        const style = window.getComputedStyle(shopHeader);
+                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5700',message:'Shop header computed style',data:{exists:true,fontFamily:style.fontFamily,fontSize:style.fontSize,display:style.display,text:shopHeader.textContent.substring(0,30)},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
+                    } else {
+                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5700',message:'Shop header NOT FOUND',data:{exists:false},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
+                    }
+                    
+                    // Hypothesis B & E: Check font loading API
+                    if (document.fonts) {
+                        document.fonts.ready.then(() => {
+                            const loadedFonts = [];
+                            document.fonts.forEach(font => {
+                                loadedFonts.push({family: font.family, status: font.status, weight: font.weight, style: font.style});
+                            });
+                            fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5715',message:'Fonts ready',data:{fontsCount:loadedFonts.length,fonts:loadedFonts,hasMeltdown:loadedFonts.some(f=>f.family.includes('Meltdown'))},timestamp:Date.now(),runId:'initial',hypothesisId:'B,E'})}).catch(()=>{});
+                        });
+                        
+                        // Also check immediately
+                        const currentFonts = [];
+                        document.fonts.forEach(font => {
+                            currentFonts.push({family: font.family, status: font.status});
+                        });
+                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5725',message:'Fonts current state',data:{fontsCount:currentFonts.length,fonts:currentFonts},timestamp:Date.now(),runId:'initial',hypothesisId:'B,E'})}).catch(()=>{});
+                    } else {
+                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5730',message:'Font API not available',data:{hasFontAPI:false,userAgent:navigator.userAgent},timestamp:Date.now(),runId:'initial',hypothesisId:'E'})}).catch(()=>{});
+                    }
+                    
+                    // Log current page location for path debugging
+                    fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5735',message:'Page context',data:{href:window.location.href,pathname:window.location.pathname,origin:window.location.origin,baseURI:document.baseURI},timestamp:Date.now(),runId:'initial',hypothesisId:'C'})}).catch(()=>{});
+                    
+                } catch (err) {
+                    fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5740',message:'Font debug error',data:{error:err.toString(),stack:err.stack},timestamp:Date.now(),runId:'initial',hypothesisId:'ALL'})}).catch(()=>{});
+                }
+            }, 1000); // Wait 1s for DOM and fonts to settle
+            // #endregion
         };
         
         // FORCE LOAD: Backup trigger if onload fails or is overwritten

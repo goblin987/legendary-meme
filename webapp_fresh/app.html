@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.5-BIGGIE-MUSIC-PLAYER';
+        const APP_VERSION = '5.6-MAP-CLASSIC-MARKERS';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -1521,27 +1521,41 @@
 
 
         /* CRT Scanline Overlay */
-        .map-container::before {
-            content: "BIG COMPANY BOT - MAP [LIVE]";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            color: #D30000;
-            font-family: 'MeltdownPhantom', 'Courier New', monospace;
+        /* Map Header - Shop Style */
+        .map-header {
+            font-family: 'MeltdownPhantom', 'Impact', 'Arial Black', sans-serif;
+            font-size: 48px;
             font-weight: bold;
-            font-size: 16px;
+            color: #D30000;
+            text-shadow: 
+                5px 5px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                0 5px 15px rgba(0, 0, 0, 0.9);
+            text-align: center;
+            position: relative;
+            background: transparent;
+            padding: 18px 15px 12px 15px;
+            margin: 12px 8px 8px 8px;
+            letter-spacing: 2px;
             z-index: 100;
-            pointer-events: none;
-            text-shadow: 0 0 15px rgba(211, 0, 0, 0.9);
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(211, 0, 0, 0.6);
-            box-shadow: 0 0 25px rgba(211, 0, 0, 0.4);
-            border: 1px solid rgba(211, 0, 0, 0.5);
-            box-shadow: 0 0 20px rgba(211, 0, 0, 0.3);
-            letter-spacing: 1.5px;
+            white-space: nowrap;
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(211, 0, 0, 0.25))
+                    drop-shadow(0 0 30px rgba(211, 0, 0, 0.15))
+                    drop-shadow(0 0 45px rgba(211, 0, 0, 0.1));
+            animation: redGlowPulse 3s ease-in-out infinite;
+        }
+        
+        @media (max-width: 480px) {
+            .map-header {
+                font-size: 30px;
+                padding: 12px 10px 8px 10px;
+                margin: 10px 5px 6px 5px;
+                line-height: 1.1;
+                letter-spacing: 1px;
+            }
         }
 
         .map-container::after {
@@ -2683,34 +2697,13 @@
         }
 
         /* --- SIGNAL EMITTERS (CITIES) --- */
+        /* Hide new city pins - use GTA markers instead */
         .city-pin {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            width: 40px; height: 40px;
-            display: flex;
-            align-items: center; justify-content: center;
-            cursor: pointer;
-            z-index: 150;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        .city-pin:hover {
-            transform: translate(-50%, -50%) scale(1.3);
+            display: none !important;
         }
         
         .pin-core {
-            width: 20px; 
-            height: 20px;
-            background: radial-gradient(circle, #fff 0%, #D30000 40%, #8B0000 100%);
-            border: 3px solid #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 25px rgba(211, 0, 0, 0.9), 
-                        0 0 50px rgba(211, 0, 0, 0.5),
-                        0 4px 10px rgba(0, 0, 0, 0.8),
-                        inset 0 0 10px rgba(255, 255, 255, 0.4);
-            animation: pinPulse 2s ease-in-out infinite;
-            z-index: 2;
-            transition: all 0.3s;
+            display: none !important;
         }
         
         .pin-pulse {
@@ -2741,55 +2734,13 @@
             100% { width: 100%; height: 100%; opacity: 0; border-width: 0px; }
         }
         
+        /* Hide new city labels - use GTA marker labels instead */
         .city-label {
-            position: absolute;
-            top: 30px;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(211, 0, 0, 0.7);
-            border-radius: 8px;
-            color: #D30000;
-            padding: 8px 16px;
-            font-family: 'MeltdownPhantom', 'Courier New', monospace;
-            font-size: 14px;
-            font-weight: bold;
-            white-space: nowrap;
-            pointer-events: none;
-            text-shadow: 0 0 10px rgba(211, 0, 0, 0.8);
-            box-shadow: 0 0 20px rgba(211, 0, 0, 0.4);
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: all 0.3s var(--spring-smooth);
+            display: none !important;
         }
         
         /* Hover State */
-        .city-pin:hover .pin-core {
-            background: #fff;
-            box-shadow: 0 0 25px #fff;
-            transform: scale(1.2);
-        }
-        
-        /* FOCUS MODE (Apple Style) */
-        .satellite-view:has(.city-pin:hover) .city-pin:not(:hover) {
-            opacity: 0.4;
-            filter: blur(1px);
-            transform: translate(-50%, -50%) scale(0.9);
-            transition: all 0.3s var(--spring-smooth);
-        }
-        
-        .city-pin:hover .city-label {
-            background: #D30000;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 20px rgba(211, 0, 0, 0.6);
-        }
-        
-        .city-pin:hover .pin-pulse {
-            animation-duration: 1s;
-            border-color: #fff;
-        }
+        /* City pin hover styles removed - using GTA markers */
         
         .scanner-text {
             display: none;
@@ -2947,19 +2898,13 @@
         .sat-blip:hover .blip-label { opacity: 1; text-shadow: 0 0 10px #fff; }
 
         /* HUD */
+        /* Hide sat-hud and coords */
         .sat-hud {
-            position: absolute; bottom: 20px; left: 20px; right: 20px;
-            display: flex; justify-content: space-between; align-items: flex-end;
-            z-index: 30;
-            pointer-events: none;
+            display: none !important;
         }
-
+        
         .hud-coords {
-            font-family: 'Courier New', monospace;
-            color: #ffffff;
-            font-size: 12px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 0.9);
-            background: rgba(0, 0, 0, 0.7);
+            display: none !important;
             padding: 6px 10px;
             border-radius: 3px;
             border: 1px solid rgba(255, 0, 0, 0.5);
@@ -5399,6 +5344,7 @@
         <!-- MAP SECTION -->
         <div id="map" class="section">
             <div class="placeholder-box" style="padding: 0; border: none;">
+                <div class="map-header">BIG COMPANY BOT</div>
                 <div class="map-container" id="map-container">
                     <div class="satellite-view">
                         <div class="map-zoom-layer" id="map-zoom-layer">
@@ -5518,10 +5464,6 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                                 <span class="stock-count">0 ITEMS</span>
                             </div>
                         </div> <!-- End Zoom Layer -->
-                        
-                        <div class="sat-hud">
-                            <div class="hud-coords" style="color: #ffffff; text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);">SAT-LINK: ACTIVE</div>
-                        </div>
                     </div>
 
                     <!-- District Panel -->

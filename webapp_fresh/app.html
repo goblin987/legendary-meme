@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '4.2-FORCE-FONT-RELOAD';
+        const APP_VERSION = '4.3-RENDER-FONT-HOTFIX';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -64,20 +64,26 @@
     <style>
         @font-face {
             font-family: 'Pricedown';
-            src: url('pricedown.woff2?v=4.1') format('woff2'),
-                 url('pricedown.woff?v=4.1') format('woff');
+            src: url('/webapp_fresh/pricedown.woff2?v=4.3') format('woff2'),
+                 url('pricedown.woff2?v=4.3') format('woff2'),
+                 url('/webapp_fresh/pricedown.woff?v=4.3') format('woff'),
+                 url('pricedown.woff?v=4.3') format('woff');
             font-display: swap;
         }
         
         @font-face {
             font-family: 'GraffitiTwo';
-            src: url('Graffiti%20W00%20Two.woff2?v=4.1') format('woff2');
+            src: url('/webapp_fresh/GraffitiW00Two.woff2?v=4.3') format('woff2'),
+                 url('GraffitiW00Two.woff2?v=4.3') format('woff2'),
+                 url('/webapp_fresh/Graffiti%20W00%20Two.woff2?v=4.3') format('woff2'),
+                 url('Graffiti%20W00%20Two.woff2?v=4.3') format('woff2');
             font-display: swap;
         }
         
         @font-face {
             font-family: 'MeltdownPhantom';
-            src: url('MeltdownPhantom.ttf?v=4.1') format('truetype');
+            src: url('/webapp_fresh/MeltdownPhantom.ttf?v=4.3') format('truetype'),
+                 url('MeltdownPhantom.ttf?v=4.3') format('truetype');
             font-display: swap;
         }
         

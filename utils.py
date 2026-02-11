@@ -1363,7 +1363,7 @@ def init_db():
                 id SERIAL PRIMARY KEY, city TEXT NOT NULL, district TEXT NOT NULL,
                 product_type TEXT NOT NULL, size TEXT NOT NULL, name TEXT NOT NULL, price REAL NOT NULL,
                 available INTEGER DEFAULT 1, reserved INTEGER DEFAULT 0, original_text TEXT,
-                added_by BIGINT, added_date TEXT
+                added_by BIGINT, added_date TEXT, added_by_worker_id BIGINT
             )''')
             conn.commit()
             logger.info(f"✅ Products table created successfully")
@@ -1773,6 +1773,17 @@ def init_db():
                     logger.info(f"🔍 products.added_by column type: {col_info['data_type']}")
                 else:
                     logger.warning(f"⚠️ products.added_by column not found!")
+            except Exception as e:
+                logger.error(f"Error verifying products.added_by: {e}")
+            
+            # Add added_by_worker_id column to products table
+            try:
+                c.execute("ALTER TABLE products ADD COLUMN IF NOT EXISTS added_by_worker_id BIGINT")
+                conn.commit()
+                logger.info(f"✅ products.added_by_worker_id column added/verified")
+            except Exception as e:
+                conn.rollback()
+                logger.info(f"ℹ️ products.added_by_worker_id already exists: {e}")
             except Exception as e:
                 conn.rollback()  # Rollback if verification fails
                 logger.warning(f"⚠️ Could not verify products.added_by column type: {e}")

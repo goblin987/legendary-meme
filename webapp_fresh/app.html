@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '4.3-RENDER-FONT-HOTFIX';
+        const APP_VERSION = '4.4-FINAL-POLISH';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -1135,41 +1135,43 @@
         /* Shop Header - Big Company Bot */
         .shop-header {
             font-family: 'MeltdownPhantom', 'Impact', 'Arial Black', sans-serif;
-            font-size: 48px;
+            font-size: 36px;
             font-weight: normal;
             color: #fff;
             text-shadow: 3px 3px 0 #000, -1px -1px 0 #000;
             text-align: center;
             position: relative;
             background: transparent;
-            padding: 20px 30px;
-            margin: 20px 15px 15px 15px;
-            letter-spacing: 2px;
+            padding: 15px 20px;
+            margin: 15px 10px 10px 10px;
+            letter-spacing: 1px;
             z-index: 61;
+            white-space: nowrap;
         }
         
         @media (max-width: 480px) {
             .shop-header {
-                font-size: 32px;
-                padding: 15px 20px;
-                margin: 15px 10px 10px 10px;
-                line-height: 1.3;
+                font-size: 24px;
+                padding: 12px 15px;
+                margin: 12px 8px 8px 8px;
+                line-height: 1.2;
+                letter-spacing: 0.5px;
             }
         }
         
         /* Search Bar (LSPD Terminal - Minimal) */
         .search-container {
-            margin-top: 15px; /* Reduced since header is added */
-            margin-bottom: 20px; 
+            margin-top: 10px;
+            margin-bottom: 15px; 
             margin-left: 10px;
             margin-right: 10px;
-            border: 2px solid var(--gta-green);
-            background: rgba(0,0,0,0.5); /* Semi-transparent to show background */
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(8px);
-            padding: 12px;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2), inset 0 0 10px rgba(255, 0, 0, 0.05);
             position: relative;
             border-radius: 4px;
             z-index: 60;
@@ -1177,9 +1179,10 @@
         
         @media (max-width: 480px) {
             .search-container {
-                margin-top: 25px;
-                padding: 10px;
-                font-size: 12px;
+                margin-top: 8px;
+                margin-bottom: 12px;
+                padding: 6px 8px;
+                font-size: 11px;
                 background: rgba(0,0,0,0.6);
             }
         }
@@ -1189,11 +1192,11 @@
             position: absolute;
             right: 5px; top: -8px;
             background: #000;
-            font-size: 10px; 
+            font-size: 9px; 
             color: #ffffff;
             padding: 0 4px;
             font-family: monospace;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
         }
         
         .search-input {
@@ -1201,36 +1204,38 @@
             border: none;
             color: #ffffff;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
+            font-size: 12px;
             width: 100%;
             outline: none;
             text-transform: uppercase;
             font-weight: bold;
             padding: 0;
             border-radius: 0;
+            letter-spacing: 0.5px;
         }
         
         @media (max-width: 480px) {
             .search-input {
-                font-size: 11px;
+                font-size: 10px;
             }
         }
         
-        .search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+        .search-input::placeholder { color: rgba(255, 255, 255, 0.3); }
         
         .search-label {
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.9);
             font-family: 'Courier New', monospace;
-            margin-right: 10px;
+            margin-right: 8px;
             font-weight: bold;
             display: block;
-            font-size: 12px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-size: 11px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+            white-space: nowrap;
         }
         
         @media (max-width: 480px) {
             .search-label {
-                font-size: 10px;
+                font-size: 9px;
                 margin-right: 5px;
             }
         }
@@ -5665,71 +5670,6 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
             loadProducts(); // CRITICAL: Load Data
             loadUserBalance(); // Load user balance on init
             try { sfx.init(); } catch(e) {} 
-            
-            // #region agent log - Font Debug Instrumentation
-            setTimeout(() => {
-                try {
-                    // Hypothesis A & C: Test font file accessibility
-                    const fontUrls = [
-                        '/webapp_fresh/MeltdownPhantom.ttf?v=4.3',
-                        'MeltdownPhantom.ttf?v=4.3',
-                        window.location.origin + '/webapp_fresh/MeltdownPhantom.ttf?v=4.3'
-                    ];
-                    
-                    fontUrls.forEach((url, idx) => {
-                        fetch(url, {method: 'HEAD'}).then(r => {
-                            fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5675',message:'Font URL test',data:{url:url,idx:idx,status:r.status,ok:r.ok,origin:window.location.origin},timestamp:Date.now(),runId:'initial',hypothesisId:'A,C'})}).catch(()=>{});
-                        }).catch(err => {
-                            fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5675',message:'Font URL error',data:{url:url,idx:idx,error:err.toString(),origin:window.location.origin},timestamp:Date.now(),runId:'initial',hypothesisId:'A,C'})}).catch(()=>{});
-                        });
-                    });
-                    
-                    // Hypothesis D: Check if elements exist and their computed styles
-                    const menuHeader = document.querySelector('.menu-header');
-                    const shopHeader = document.querySelector('.shop-header');
-                    
-                    if (menuHeader) {
-                        const style = window.getComputedStyle(menuHeader);
-                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5690',message:'Menu header computed style',data:{exists:true,fontFamily:style.fontFamily,fontSize:style.fontSize,display:style.display,text:menuHeader.textContent.substring(0,30)},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
-                    } else {
-                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5690',message:'Menu header NOT FOUND',data:{exists:false},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
-                    }
-                    
-                    if (shopHeader) {
-                        const style = window.getComputedStyle(shopHeader);
-                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5700',message:'Shop header computed style',data:{exists:true,fontFamily:style.fontFamily,fontSize:style.fontSize,display:style.display,text:shopHeader.textContent.substring(0,30)},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
-                    } else {
-                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5700',message:'Shop header NOT FOUND',data:{exists:false},timestamp:Date.now(),runId:'initial',hypothesisId:'D'})}).catch(()=>{});
-                    }
-                    
-                    // Hypothesis B & E: Check font loading API
-                    if (document.fonts) {
-                        document.fonts.ready.then(() => {
-                            const loadedFonts = [];
-                            document.fonts.forEach(font => {
-                                loadedFonts.push({family: font.family, status: font.status, weight: font.weight, style: font.style});
-                            });
-                            fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5715',message:'Fonts ready',data:{fontsCount:loadedFonts.length,fonts:loadedFonts,hasMeltdown:loadedFonts.some(f=>f.family.includes('Meltdown'))},timestamp:Date.now(),runId:'initial',hypothesisId:'B,E'})}).catch(()=>{});
-                        });
-                        
-                        // Also check immediately
-                        const currentFonts = [];
-                        document.fonts.forEach(font => {
-                            currentFonts.push({family: font.family, status: font.status});
-                        });
-                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5725',message:'Fonts current state',data:{fontsCount:currentFonts.length,fonts:currentFonts},timestamp:Date.now(),runId:'initial',hypothesisId:'B,E'})}).catch(()=>{});
-                    } else {
-                        fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5730',message:'Font API not available',data:{hasFontAPI:false,userAgent:navigator.userAgent},timestamp:Date.now(),runId:'initial',hypothesisId:'E'})}).catch(()=>{});
-                    }
-                    
-                    // Log current page location for path debugging
-                    fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5735',message:'Page context',data:{href:window.location.href,pathname:window.location.pathname,origin:window.location.origin,baseURI:document.baseURI},timestamp:Date.now(),runId:'initial',hypothesisId:'C'})}).catch(()=>{});
-                    
-                } catch (err) {
-                    fetch('http://127.0.0.1:7242/ingest/6349eba9-89c2-4c1c-93a4-67da3377c1fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'app.html:5740',message:'Font debug error',data:{error:err.toString(),stack:err.stack},timestamp:Date.now(),runId:'initial',hypothesisId:'ALL'})}).catch(()=>{});
-                }
-            }, 1000); // Wait 1s for DOM and fonts to settle
-            // #endregion
         };
         
         // FORCE LOAD: Backup trigger if onload fails or is overwritten

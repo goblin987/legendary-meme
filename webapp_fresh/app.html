@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.8-CLEAN-MARKERS-FAST-MUSIC';
+        const APP_VERSION = '5.9-NO-WHITE-CIRCLE-HEADER-FIX';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -113,9 +113,19 @@
         
         /* Pulse Glow for Pins */
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(63, 165, 53, 0.6); transform: translate(-50%, -50%) scale(1); }
-            70% { box-shadow: 0 0 0 15px rgba(63, 165, 53, 0); transform: translate(-50%, -50%) scale(1.1); }
-            100% { box-shadow: 0 0 0 0 rgba(63, 165, 53, 0); transform: translate(-50%, -50%) scale(1); }
+            0% { 
+                box-shadow: 0 0 10px rgba(211, 0, 0, 0.8), 
+                            0 2px 4px rgba(0, 0, 0, 0.6); 
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(211, 0, 0, 1), 
+                            0 0 30px rgba(211, 0, 0, 0.5),
+                            0 2px 4px rgba(0, 0, 0, 0.6); 
+            }
+            100% { 
+                box-shadow: 0 0 10px rgba(211, 0, 0, 0.8), 
+                            0 2px 4px rgba(0, 0, 0, 0.6); 
+            }
         }
         
         /* Pin Pulse Animation */
@@ -1209,7 +1219,7 @@
         /* Shop Header - Big Company Bot */
         .shop-header {
             font-family: 'MeltdownPhantom', 'Impact', 'Arial Black', sans-serif;
-            font-size: 52px;
+            font-size: 48px;
             font-weight: bold;
             color: #D30000;
             text-shadow: 
@@ -1221,7 +1231,7 @@
             text-align: center;
             position: relative;
             background: transparent;
-            padding: 18px 15px;
+            padding: 18px 15px 12px 15px;
             margin: 12px 8px 8px 8px;
             letter-spacing: 2px;
             z-index: 61;
@@ -1231,12 +1241,13 @@
                     drop-shadow(0 0 30px rgba(211, 0, 0, 0.15))
                     drop-shadow(0 0 45px rgba(211, 0, 0, 0.1));
             animation: redGlowPulse 3s ease-in-out infinite;
+            overflow: visible;
         }
         
         @media (max-width: 480px) {
             .shop-header {
-                font-size: 32px;
-                padding: 12px 10px;
+                font-size: 30px;
+                padding: 12px 10px 8px 10px;
                 margin: 10px 5px 6px 5px;
                 line-height: 1.1;
                 letter-spacing: 1px;
@@ -1639,17 +1650,9 @@
             white-space: nowrap;
         }
 
-        /* Pulsing Blip */
+        /* Pulsing Blip - Hidden, markers have their own animation */
         .blip-pulse {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 10px; height: 10px;
-            background: var(--gta-gold);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse 2s infinite;
-            pointer-events: none;
-            z-index: 29;
+            display: none;
         }
         
         @keyframes pulse {
@@ -2506,15 +2509,7 @@
         }
 
         .blip-pulse {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 10px; height: 10px;
-            background: var(--gta-gold);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse 2s infinite;
-            pointer-events: none;
-            z-index: 29;
+            display: none;
         }
         
         @keyframes pulse {

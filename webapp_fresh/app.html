@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '4.5-RED-HEADERS';
+        const APP_VERSION = '4.6-BIG-BOLD-RED';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -1135,27 +1135,43 @@
         /* Shop Header - Big Company Bot */
         .shop-header {
             font-family: 'MeltdownPhantom', 'Impact', 'Arial Black', sans-serif;
-            font-size: 36px;
-            font-weight: normal;
+            font-size: 52px;
+            font-weight: bold;
             color: #D30000;
-            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 0 0 20px rgba(211, 0, 0, 0.5);
+            text-shadow: 
+                5px 5px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                0 0 30px rgba(211, 0, 0, 0.8),
+                0 0 50px rgba(211, 0, 0, 0.5),
+                0 5px 15px rgba(0, 0, 0, 0.9);
             text-align: center;
             position: relative;
             background: transparent;
-            padding: 15px 20px;
-            margin: 15px 10px 10px 10px;
-            letter-spacing: 1px;
+            padding: 18px 15px;
+            margin: 12px 8px 8px 8px;
+            letter-spacing: 2px;
             z-index: 61;
             white-space: nowrap;
+            transform: scale(1.05);
         }
         
         @media (max-width: 480px) {
             .shop-header {
-                font-size: 24px;
-                padding: 12px 15px;
-                margin: 12px 8px 8px 8px;
-                line-height: 1.2;
-                letter-spacing: 0.5px;
+                font-size: 32px;
+                padding: 12px 10px;
+                margin: 10px 5px 6px 5px;
+                line-height: 1.1;
+                letter-spacing: 1px;
+                text-shadow: 
+                    4px 4px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    0 0 20px rgba(211, 0, 0, 0.8),
+                    0 0 35px rgba(211, 0, 0, 0.5),
+                    0 4px 10px rgba(0, 0, 0, 0.9);
             }
         }
         
@@ -1984,8 +2000,8 @@
             font-family: 'MeltdownPhantom', 'Impact', 'Arial Black', sans-serif;
             font-size: 65px;
             font-weight: normal;
-            color: #D30000;
-            text-shadow: 4px 4px 10px #000, 0 0 40px rgba(211, 0, 0, 0.6), 3px 3px 0 #000, -1px -1px 0 #000;
+            color: #fff;
+            text-shadow: 4px 4px 10px #000, 0 0 40px rgba(0, 0, 0, 0.9), 3px 3px 0 #000, -1px -1px 0 #000;
             position: absolute;
             top: 35px; left: 15px;
             margin: 0;

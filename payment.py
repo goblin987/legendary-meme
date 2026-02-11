@@ -1258,6 +1258,7 @@ To receive your products securely via encrypted chat, please:
                 if not use_userbot_delivery or fallback_to_bot:
                     # Fallback to bot delivery (old method)
                     logger.info(f"📦 BOT DELIVERY: Starting bot fallback delivery for {len(processed_product_ids)} products to user {user_id}")
+                    opened_files = []  # Track file handles for cleanup (if any)
                     delivery_counter = 0
                     for prod_id in processed_product_ids:
                         delivery_counter += 1

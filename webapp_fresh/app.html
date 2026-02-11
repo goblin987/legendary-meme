@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '5.6-MAP-CLASSIC-MARKERS';
+        const APP_VERSION = '5.7-FINAL-MAP-RADIO-FIX';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -820,52 +820,34 @@
             filter: brightness(0.8);
         }
 
-        /* Radio / Music Player */
+        /* Radio Toggle Button */
         .radio-pill {
             position: fixed;
             bottom: 100px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(211, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #444;
             border-radius: 30px;
-            padding: 10px 18px;
+            padding: 8px 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             z-index: 9999;
-            box-shadow: 0 5px 25px rgba(211, 0, 0, 0.4), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            transition: all 0.2s ease;
             pointer-events: auto;
         }
         
         .radio-pill:hover {
-            border-color: rgba(211, 0, 0, 0.9);
-            box-shadow: 0 8px 30px rgba(211, 0, 0, 0.6);
-            transform: translateY(-2px);
+            background: #1a1a1a;
+            border-color: #D30000;
         }
         
-        .music-btn {
-            background: transparent;
-            border: none;
-            color: #D30000;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 4px 8px;
-            transition: all 0.2s;
-            filter: drop-shadow(0 0 5px rgba(211, 0, 0, 0.5));
-        }
-        
-        .music-btn:hover {
-            color: #fff;
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 10px rgba(211, 0, 0, 0.8));
-        }
-        
-        .music-btn:active {
-            transform: scale(0.9);
+        .radio-pill:active {
+            transform: scale(0.95);
+            background: #222;
+            border-color: #D30000;
         }
         
         .radio-visualizer {
@@ -901,27 +883,21 @@
         
         .radio-text-scroll {
             color: #D30000;
-            font-family: 'MeltdownPhantom', 'Courier New', monospace;
+            font-family: 'Courier New', monospace;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 12px;
             white-space: nowrap;
-            max-width: 140px;
+            max-width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
-            text-shadow: 0 0 8px rgba(211, 0, 0, 0.6);
         }
         
         @media (max-width: 480px) {
             .radio-pill {
                 bottom: 80px;
                 right: 10px;
-                padding: 8px 14px;
+                padding: 6px 12px;
                 gap: 8px;
-            }
-            
-            .music-btn {
-                font-size: 16px;
-                padding: 2px 6px;
             }
             
             .radio-text-scroll {
@@ -1599,7 +1575,7 @@
 
         /* The Land Mass (Lithuania) - Digital Outline */
         .map-img-interactive g {
-            fill: transparent;
+            fill: rgba(0, 0, 0, 0.35);
             stroke: rgba(211, 0, 0, 0.9);
             stroke-width: 6px;
             stroke-linejoin: round;
@@ -2797,7 +2773,7 @@
         }
         /* Ensure single-layer SVG fallback looks perfect */
         .map-img-interactive g path {
-            fill: transparent !important;
+            fill: rgba(0, 0, 0, 0.35) !important;
             stroke: rgba(211, 0, 0, 0.9) !important;
             stroke-width: 6px !important;
             stroke-linejoin: round !important;
@@ -2845,7 +2821,7 @@
         }
         
         .map-img-interactive g path {
-            fill: transparent !important;
+            fill: rgba(0, 0, 0, 0.35) !important;
             stroke: rgba(211, 0, 0, 0.9) !important;
             stroke-width: 6px !important;
             stroke-linejoin: round !important;
@@ -3578,9 +3554,8 @@
     </div>
 
     <!-- Audio Elements -->
-    <!-- Music Player -->
-    <div class="radio-pill">
-        <button class="music-btn" onclick="event.stopPropagation(); prevSong();" title="Previous">⏮</button>
+    <!-- Radio Toggle Button -->
+    <div class="radio-pill" onclick="toggleRadio()">
         <div class="radio-visualizer" id="radio-viz">
             <div class="viz-bar b1"></div>
             <div class="viz-bar b2"></div>
@@ -3588,7 +3563,6 @@
             <div class="viz-bar b4"></div>
         </div>
         <span class="radio-text-scroll" id="radio-display">♫ BIG POPPA</span>
-        <button class="music-btn" onclick="event.stopPropagation(); nextSong();" title="Next">⏭</button>
     </div>
 
     <div class="bg"></div>
@@ -6181,9 +6155,9 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                     };
                 }
                 
-                // Create Pin Element
+                // Create GTA Marker Element (Classic Style)
                 const pin = document.createElement('div');
-                pin.className = 'city-pin';
+                pin.className = 'gta-marker';
                 pin.style.top = coords.top + '%';
                 pin.style.left = coords.left + '%';
                 
@@ -6193,9 +6167,13 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                 pin.onclick = () => zoomToCity(city, coords.top, coords.left);
                 
                 pin.innerHTML = `
-                    <div class="pin-core"></div>
-                    <div class="pin-pulse"></div>
-                    <div class="city-label">${displayName}</div>
+                    <div class="marker-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#000">
+                            <circle cx="12" cy="12" r="8"/>
+                        </svg>
+                    </div>
+                    <span class="marker-label">${displayName}</span>
+                    <div class="blip-pulse"></div>
                 `;
                 
                 container.appendChild(pin);

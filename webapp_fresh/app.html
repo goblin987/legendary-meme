@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '6.0-TINY-PINS-DIMMER-MAP';
+        const APP_VERSION = '6.1-TINTED-MAP-LIKE-CARDS';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -2791,7 +2791,7 @@
         }
         /* Ensure single-layer SVG fallback looks perfect */
         .map-img-interactive g path {
-            fill: rgba(20, 20, 20, 0.03) !important; /* MUCH dimmer, almost transparent */
+            fill: rgba(0, 0, 0, 0.45) !important; /* Tinted dark like product cards */
             stroke: rgba(211, 0, 0, 0.9) !important;
             stroke-width: 6px !important;
             stroke-linejoin: round !important;
@@ -2839,7 +2839,7 @@
         }
         
         .map-img-interactive g path {
-            fill: rgba(20, 20, 20, 0.03) !important; /* MUCH dimmer, almost transparent */
+            fill: rgba(0, 0, 0, 0.45) !important; /* Tinted dark like product cards */
             stroke: rgba(211, 0, 0, 0.9) !important;
             stroke-width: 6px !important;
             stroke-linejoin: round !important;

@@ -10,7 +10,7 @@
     <!-- Version check and cache nuke -->
     <script>
         // IMMEDIATE CACHE NUKE - Runs before anything else
-        const APP_VERSION = '6.1-TINTED-MAP-LIKE-CARDS';
+        const APP_VERSION = '7.0-MAX-3-BASKET-25MIN-TIMEOUT';
         const lastVersion = localStorage.getItem('app_version_check');
         
         if(lastVersion !== APP_VERSION) {
@@ -6804,10 +6804,10 @@ l-6 60 60 45 c48 36 63 54 76 93 25 73 66 90 220 91 l120 1 95 49 c52 27 97
                 }
             }
 
-            // 2. Check basket limit
-            if(basket.length >= 10) {
-                if(window.charSystem) charSystem.show('cj', 'BASKET FULL! MAX 10 ITEMS.');
-                safeAlert('⚠️ Maximum 10 items per order');
+            // 2. Check basket limit (MAX 3 ITEMS)
+            if(basket.length >= 3) {
+                if(window.charSystem) charSystem.show('cj', 'BASKET FULL! MAX 3 ITEMS.');
+                safeAlert('⚠️ Maximum 3 items per order');
                 return;
             }
             

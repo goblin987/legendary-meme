@@ -1567,6 +1567,15 @@ async def handle_add_to_basket(update: Update, context: ContextTypes.DEFAULT_TYP
             return
         c.execute("SELECT basket FROM users WHERE user_id = %s", (user_id,))
         user_basket_row = c.fetchone(); current_basket_str = user_basket_row['basket'] if user_basket_row else ''
+        
+        # Check basket limit (max 3 items)
+        current_basket_items = [item for item in current_basket_str.split(',') if item.strip()] if current_basket_str else []
+        if len(current_basket_items) >= 3:
+            conn.rollback()
+            keyboard = [[InlineKeyboardButton(f"🛒 View Basket", callback_data="view_basket"), InlineKeyboardButton(f"{EMOJI_HOME} {home_button}", callback_data="back_start")]]
+            await query.edit_message_text("⚠️ Maximum 3 items per order! Please checkout or clear your basket first.", reply_markup=InlineKeyboardMarkup(keyboard), parse_mode=None)
+            return
+        
         timestamp = time.time(); new_item_str = f"{product_id_reserved}:{timestamp}"
         new_basket_str = f"{current_basket_str},{new_item_str}" if current_basket_str else new_item_str
         c.execute("UPDATE users SET basket = %s WHERE user_id = %s", (new_basket_str, user_id))

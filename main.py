@@ -3358,6 +3358,14 @@ def webapp_basket_add():
             """, (user_id, f"{product_id}:{timestamp}"))
         else:
             current_basket = user_res['basket'] or ''
+            
+            # Check basket limit (max 3 items)
+            current_basket_items = [item for item in current_basket.split(',') if item.strip()] if current_basket else []
+            if len(current_basket_items) >= 3:
+                conn.rollback()
+                conn.close()
+                return jsonify({'success': False, 'error': 'Maximum 3 items per order! Please checkout first.'}), 400
+            
             new_basket = f"{current_basket},{product_id}:{timestamp}" if current_basket else f"{product_id}:{timestamp}"
             c.execute("UPDATE users SET basket = %s WHERE user_id = %s", (new_basket, user_id))
         

@@ -93,7 +93,7 @@ ADMIN_ID_RAW = os.environ.get("ADMIN_ID", None)
 PRIMARY_ADMIN_IDS_STR = os.environ.get("PRIMARY_ADMIN_IDS", "")
 SECONDARY_ADMIN_IDS_STR = os.environ.get("SECONDARY_ADMIN_IDS", "")
 SUPPORT_USERNAME = os.environ.get("SUPPORT_USERNAME", "support")
-BASKET_TIMEOUT_MINUTES_STR = os.environ.get("BASKET_TIMEOUT_MINUTES", "15")
+BASKET_TIMEOUT_MINUTES_STR = os.environ.get("BASKET_TIMEOUT_MINUTES", "25")
 
 # Legacy support for single ADMIN_ID
 ADMIN_ID = None
@@ -116,11 +116,11 @@ if SECONDARY_ADMIN_IDS_STR:
     try: SECONDARY_ADMIN_IDS = [int(uid.strip()) for uid in SECONDARY_ADMIN_IDS_STR.split(',') if uid.strip()]
     except ValueError: logger.warning("SECONDARY_ADMIN_IDS contains non-integer values. Ignoring.")
 
-BASKET_TIMEOUT = 15 * 60 # Default
+BASKET_TIMEOUT = 25 * 60 # Default: 25 minutes
 try:
     BASKET_TIMEOUT = int(BASKET_TIMEOUT_MINUTES_STR) * 60
-    if BASKET_TIMEOUT <= 0: logger.warning("BASKET_TIMEOUT_MINUTES non-positive, using default 15 min."); BASKET_TIMEOUT = 15 * 60
-except ValueError: logger.warning("Invalid BASKET_TIMEOUT_MINUTES, using default 15 min."); BASKET_TIMEOUT = 15 * 60
+    if BASKET_TIMEOUT <= 0: logger.warning("BASKET_TIMEOUT_MINUTES non-positive, using default 25 min."); BASKET_TIMEOUT = 25 * 60
+except ValueError: logger.warning("Invalid BASKET_TIMEOUT_MINUTES, using default 25 min."); BASKET_TIMEOUT = 25 * 60
 
 # --- Validate essential config ---
 if not TOKEN: 
